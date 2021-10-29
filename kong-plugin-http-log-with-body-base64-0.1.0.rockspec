@@ -10,7 +10,7 @@ description = {
 build = {
   type = "builtin",
   modules = {
-    ["kong.plugins.http-log-with-body.handler"] = "kong/plugins/http-log-with-body/handler.lua",
-    ["kong.plugins.http-log-with-body.schema"]  = "kong/plugins/http-log-with-body/schema.lua",
+    ["kong.plugins.http-log-with-body-base64.handler"] = "kong/plugins/http-log-with-body-base64/handler.lua",
+    ["kong.plugins.http-log-with-body-base64.schema"]  = "kong/plugins/http-log-with-body-base64/schema.lua",
   }
 }
