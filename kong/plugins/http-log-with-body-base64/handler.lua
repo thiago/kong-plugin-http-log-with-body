@@ -5,7 +5,6 @@ local cjson = require "cjson"
 local url = require "socket.url"
 local http = require "resty.http"
 
-local is_json_body = body_transformer.is_json_body
 local cjson_decode = cjson.decode
 local cjson_encode = cjson.encode
 local ngx_encode_base64 = ngx.encode_base64
@@ -143,27 +142,21 @@ end
 
 
 local function parse_body(type, data)
-  if type and data and is_json_body(type) then
-    return cjson_decode(data)
-  end
+  return ngx_encode_base64(data)
 end
 
 
 function HttpLogHandler:access(conf)
-  if is_json_body(kong.request.get_header("Content-Type")) then
-    local ctx = kong.ctx.plugin;
-    ctx.request_body = kong.request.get_raw_body();
-  end
+  local ctx = kong.ctx.plugin;
+  ctx.request_body = kong.request.get_raw_body();
 end
 
 
 function HttpLogHandler:body_filter(conf)
-  if is_json_body(kong.response.get_header("Content-Type")) then
-    local ctx = kong.ctx.plugin;
-    local chunk, eof = ngx.arg[1], ngx.arg[2];
-    if not eof then
-      ctx.response_body = (ctx.response_body or "") .. (chunk or "")
-    end
+  local ctx = kong.ctx.plugin;
+  local chunk, eof = ngx.arg[1], ngx.arg[2];
+  if not eof then
+    ctx.response_body = (ctx.response_body or "") .. (chunk or "")
   end
 end
 

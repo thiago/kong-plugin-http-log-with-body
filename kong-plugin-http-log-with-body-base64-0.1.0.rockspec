@@ -1,7 +1,7 @@
-package = "kong-plugin-http-log-with-body"
-version = "0.1.1-2"
+package = "kong-plugin-http-log-with-body-base64"
+version = "0.1.0"
 source = {
-  url = "git://github.com/zenvia/kong-plugin-http-log-with-body",
+  url = "git://github.com/thiago/kong-plugin-http-log-with-body",
   branch = "master"
 }
 description = {
